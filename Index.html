@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cpm Work Online</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #4CAF50 50%, #000000 50%);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 10px auto;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: #4CAF50;
+        }
+        
+        .title {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .option-btn {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 200px;
+            text-align: center;
+        }
+        
+        .form-container {
+            background: linear-gradient(to right, #1E90FF 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            flex-grow: 1;
+            display: none;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        .submit-btn {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .profile-info {
+            background: linear-gradient(to right, #4CAF50 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .admin-panel {
+            background: linear-gradient(to right, #1E90FF 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            display: none;
+        }
+        
+        .user-list {
+            margin-top: 20px;
+        }
+        
+        .user-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .admin-login {
+            background: linear-gradient(to right, #1E90FF 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Home -->
+    <div id="home-page">
+        <div class="header">
+            <h1>Cpm Work Online</h1>
+            <div class="logo">CW</div>
+            <div class="title">Welcome To The Freelancing Bot</div>
+        </div>
+        
+        <div class="options">
+            <button class="option-btn" id="work-now-btn">Work Now</button>
+            <button class="option-btn" id="registration-btn">Registration</button>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="option-btn" id="admin-btn" style="background-color: #ff5555; color: white; width: 150px;">Admin Panel</button>
+        </div>
+    </div>
+    
+    <!-- Page 2: Registration -->
+    <div id="registration-page" class="form-container">
+        <button class="back-btn" id="back-from-registration">← Back</button>
+        <h2 class="form-title">Registration</h2>
+        <div class="form-group">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+            <label for="bkash">Bkash Number</label>
+            <input type="text" id="bkash" placeholder="Enter your Bkash number">
+        </div>
+        <button class="submit-btn" id="register-btn">Registration</button>
+    </div>
+    
+    <!-- Page 3: Search Profile -->
+    <div id="search-page" class="form-container">
+        <button class="back-btn" id="back-from-search">← Back</button>
+        <h2 class="form-title">Search Profile</h2>
+        <div class="form-group">
+            <label for="search-username">Search Username</label>
+            <input type="text" id="search-username" placeholder="Enter username to search">
+        </div>
+        <button class="submit-btn" id="search-btn">Search</button>
+    </div>
+    
+    <!-- Page 4: Profile View -->
+    <div id="profile-page" class="profile-info">
+        <button class="back-btn" id="back-from-profile">← Back</button>
+        <h1>Cpm Work Online</h1>
+        <h2 id="profile-name"></h2>
+        <p>Username: <span id="profile-username"></span></p>
+        <p>Registration ID: <span id="profile-id"></span></p>
+        
+        <div class="options" style="margin-top: 30px;">
+            <button class="option-btn" id="impression-btn">Impression</button>
+            <button class="option-btn" id="signup-btn">Sign_up</button>
+        </div>
+    </div>
+    
+    <!-- Admin Login Page -->
+    <div id="admin-login-page" class="admin-login">
+        <button class="back-btn" id="back-from-admin-login">← Back</button>
+        <h2 class="form-title">Admin Panel</h2>
+        <div class="form-group">
+            <label for="admin-password">Password</label>
+            <input type="password" id="admin-password" placeholder="Enter admin password">
+        </div>
+        <button class="submit-btn" id="confirm-admin-btn">Confirm</button>
+    </div>
+    
+    <!-- Admin Panel -->
+    <div id="admin-panel-page" class="admin-panel">
+        <button class="back-btn" id="back-from-admin">← Back</button>
+        <h2 class="form-title">User Lists</h2>
+        <div id="user-list" class="user-list">
+            <!-- Users will be listed here -->
+        </div>
+    </div>
+    
+    <script>
+        // Database simulation
+        let users = [];
+        let currentUserId = 1;
+        
+        // DOM Elements
+        const homePage = document.getElementById('home-page');
+        const registrationPage = document.getElementById('registration-page');
+        const searchPage = document.getElementById('search-page');
+        const profilePage = document.getElementById('profile-page');
+        const adminLoginPage = document.getElementById('admin-login-page');
+        const adminPanelPage = document.getElementById('admin-panel-page');
+        
+        // Buttons
+        const workNowBtn = document.getElementById('work-now-btn');
+        const registrationBtn = document.getElementById('registration-btn');
+        const backFromRegistration = document.getElementById('back-from-registration');
+        const backFromSearch = document.getElementById('back-from-search');
+        const backFromProfile = document.getElementById('back-from-profile');
+        const backFromAdminLogin = document.getElementById('back-from-admin-login');
+        const backFromAdmin = document.getElementById('back-from-admin');
+        const registerBtn = document.getElementById('register-btn');
+        const searchBtn = document.getElementById('search-btn');
+        const impressionBtn = document.getElementById('impression-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const adminBtn = document.getElementById('admin-btn');
+        const confirmAdminBtn = document.getElementById('confirm-admin-btn');
+        
+        // Form fields
+        const fullNameInput = document.getElementById('full-name');
+        const usernameInput = document.getElementById('username');
+        const bkashInput = document.getElementById('bkash');
+        const searchUsernameInput = document.getElementById('search-username');
+        const adminPasswordInput = document.getElementById('admin-password');
+        
+        // Profile display elements
+        const profileName = document.getElementById('profile-name');
+        const profileUsername = document.getElementById('profile-username');
+        const profileId = document.getElementById('profile-id');
+        
+        // User list element
+        const userList = document.getElementById('user-list');
+        
+        // Event Listeners
+        workNowBtn.addEventListener('click', () => {
+            homePage.style.display = 'none';
+            searchPage.style.display = 'block';
+        });
+        
+        registrationBtn.addEventListener('click', () => {
+            homePage.style.display = 'none';
+            registrationPage.style.display = 'block';
+        });
+        
+        backFromRegistration.addEventListener('click', () => {
+            registrationPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        backFromSearch.addEventListener('click', () => {
+            searchPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        backFromProfile.addEventListener('click', () => {
+            profilePage.style.display = 'none';
+            searchPage.style.display = 'block';
+        });
+        
+        backFromAdminLogin.addEventListener('click', () => {
+            adminLoginPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        backFromAdmin.addEventListener('click', () => {
+            adminPanelPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        adminBtn.addEventListener('click', () => {
+            homePage.style.display = 'none';
+            adminLoginPage.style.display = 'block';
+        });
+        
+        registerBtn.addEventListener('click', () => {
+            const fullName = fullNameInput.value.trim();
+            const username = usernameInput.value.trim();
+            const bkash = bkashInput.value.trim();
+            
+            if (fullName && username && bkash) {
+                // Save user
+                const user = {
+                    id: currentUserId++,
+                    fullName,
+                    username,
+                    bkash,
+                    registrationDate: new Date().toLocaleString()
+                };
+                
+                users.push(user);
+                
+                // Clear form
+                fullNameInput.value = '';
+                usernameInput.value = '';
+                bkashInput.value = '';
+                
+                // Show success message
+                alert('Registration successful!');
+                
+                // Go back to home
+                registrationPage.style.display = 'none';
+                homePage.style.display = 'block';
+            } else {
+                alert('Please fill all fields');
+            }
+        });
+        
+        searchBtn.addEventListener('click', () => {
+            const searchUsername = searchUsernameInput.value.trim();
+            
+            if (searchUsername) {
+                const user = users.find(u => u.username === searchUsername);
+                
+                if (user) {
+                    // Display profile
+                    profileName.textContent = user.fullName;
+                    profileUsername.textContent = user.username;
+                    profileId.textContent = user.id;
+                    
+                    // Store current username for the links
+                    profileUsername.dataset.currentUsername = user.username;
+                    
+                    // Show profile page
+                    searchPage.style.display = 'none';
+                    profilePage.style.display = 'block';
+                } else {
+                    alert('User not found');
+                }
+            } else {
+                alert('Please enter a username to search');
+            }
+        });
+        
+        impressionBtn.addEventListener('click', () => {
+            const username = profileUsername.dataset.currentUsername;
+            const url = `https://101000.shop/92af22c7480006e3af1d/2bb8de396d/?placementName=${username}`;
+            window.open(url, '_blank');
+        });
+        
+        signupBtn.addEventListener('click', () => {
+            const username = profileUsername.dataset.currentUsername;
+            const url = `https://101000.shop/92af22c7480006e3af1d/2bb8de396d/?placementName=${username}`;
+            window.open(url, '_blank');
+        });
+        
+        confirmAdminBtn.addEventListener('click', () => {
+            const password = adminPasswordInput.value.trim();
+            
+            if (password === '373324') {
+                // Show admin panel
+                adminLoginPage.style.display = 'none';
+                adminPanelPage.style.display = 'block';
+                
+                // Populate user list
+                userList.innerHTML = '';
+                users.forEach(user => {
+                    const userItem = document.createElement('div');
+                    userItem.className = 'user-item';
+                    userItem.innerHTML = `
+                        <p><strong>ID:</strong> ${user.id}</p>
+                        <p><strong>Name:</strong> ${user.fullName}</p>
+                        <p><strong>Username:</strong> ${user.username}</p>
+                        <p><strong>Bkash:</strong> ${user.bkash}</p>
+                        <p><strong>Registered:</strong> ${user.registrationDate}</p>
+                    `;
+                    userList.appendChild(userItem);
+                });
+            } else {
+                alert('Incorrect password');
+            }
+        });
+        
+        // Initialize Telegram WebApp
+        Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
+    </script>
+</body>
+    </html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cpm Work Online</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #4CAF50 50%, #000000 50%);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 10px auto;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: #4CAF50;
+        }
+        
+        .title {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .option-btn {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 200px;
+            text-align: center;
+        }
+        
+        .form-container {
+            background: linear-gradient(to right, #1E90FF 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            flex-grow: 1;
+            display: none;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        .submit-btn {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .profile-info {
+            background: linear-gradient(to right, #4CAF50 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .admin-panel {
+            background: linear-gradient(to right, #1E90FF 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            display: none;
+        }
+        
+        .user-list {
+            margin-top: 20px;
+        }
+        
+        .user-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .admin-login {
+            background: linear-gradient(to right, #1E90FF 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Home -->
+    <div id="home-page">
+        <div class="header">
+            <h1>Cpm Work Online</h1>
+            <div class="logo">CW</div>
+            <div class="title">Welcome To The Freelancing Bot</div>
+        </div>
+        
+        <div class="options">
+            <button class="option-btn" id="work-now-btn">Work Now</button>
+            <button class="option-btn" id="registration-btn">Registration</button>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="option-btn" id="admin-btn" style="background-color: #ff5555; color: white; width: 150px;">Admin Panel</button>
+        </div>
+    </div>
+    
+    <!-- Page 2: Registration -->
+    <div id="registration-page" class="form-container">
+        <button class="back-btn" id="back-from-registration">← Back</button>
+        <h2 class="form-title">Registration</h2>
+        <div class="form-group">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+            <label for="bkash">Bkash Number</label>
+            <input type="text" id="bkash" placeholder="Enter your Bkash number">
+        </div>
+        <button class="submit-btn" id="register-btn">Registration</button>
+    </div>
+    
+    <!-- Page 3: Search Profile -->
+    <div id="search-page" class="form-container">
+        <button class="back-btn" id="back-from-search">← Back</button>
+        <h2 class="form-title">Search Profile</h2>
+        <div class="form-group">
+            <label for="search-username">Search Username</label>
+            <input type="text" id="search-username" placeholder="Enter username to search">
+        </div>
+        <button class="submit-btn" id="search-btn">Search</button>
+    </div>
+    
+    <!-- Page 4: Profile View -->
+    <div id="profile-page" class="profile-info">
+        <button class="back-btn" id="back-from-profile">← Back</button>
+        <h1>Cpm Work Online</h1>
+        <h2 id="profile-name"></h2>
+        <p>Username: <span id="profile-username"></span></p>
+        <p>Registration ID: <span id="profile-id"></span></p>
+        
+        <div class="options" style="margin-top: 30px;">
+            <button class="option-btn" id="impression-btn">Impression</button>
+            <button class="option-btn" id="signup-btn">Sign_up</button>
+        </div>
+    </div>
+    
+    <!-- Admin Login Page -->
+    <div id="admin-login-page" class="admin-login">
+        <button class="back-btn" id="back-from-admin-login">← Back</button>
+        <h2 class="form-title">Admin Panel</h2>
+        <div class="form-group">
+            <label for="admin-password">Password</label>
+            <input type="password" id="admin-password" placeholder="Enter admin password">
+        </div>
+        <button class="submit-btn" id="confirm-admin-btn">Confirm</button>
+    </div>
+    
+    <!-- Admin Panel -->
+    <div id="admin-panel-page" class="admin-panel">
+        <button class="back-btn" id="back-from-admin">← Back</button>
+        <h2 class="form-title">User Lists</h2>
+        <div id="user-list" class="user-list">
+            <!-- Users will be listed here -->
+        </div>
+    </div>
+    
+    <script>
+        // Database simulation
+        let users = [];
+        let currentUserId = 1;
+        
+        // DOM Elements
+        const homePage = document.getElementById('home-page');
+        const registrationPage = document.getElementById('registration-page');
+        const searchPage = document.getElementById('search-page');
+        const profilePage = document.getElementById('profile-page');
+        const adminLoginPage = document.getElementById('admin-login-page');
+        const adminPanelPage = document.getElementById('admin-panel-page');
+        
+        // Buttons
+        const workNowBtn = document.getElementById('work-now-btn');
+        const registrationBtn = document.getElementById('registration-btn');
+        const backFromRegistration = document.getElementById('back-from-registration');
+        const backFromSearch = document.getElementById('back-from-search');
+        const backFromProfile = document.getElementById('back-from-profile');
+        const backFromAdminLogin = document.getElementById('back-from-admin-login');
+        const backFromAdmin = document.getElementById('back-from-admin');
+        const registerBtn = document.getElementById('register-btn');
+        const searchBtn = document.getElementById('search-btn');
+        const impressionBtn = document.getElementById('impression-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const adminBtn = document.getElementById('admin-btn');
+        const confirmAdminBtn = document.getElementById('confirm-admin-btn');
+        
+        // Form fields
+        const fullNameInput = document.getElementById('full-name');
+        const usernameInput = document.getElementById('username');
+        const bkashInput = document.getElementById('bkash');
+        const searchUsernameInput = document.getElementById('search-username');
+        const adminPasswordInput = document.getElementById('admin-password');
+        
+        // Profile display elements
+        const profileName = document.getElementById('profile-name');
+        const profileUsername = document.getElementById('profile-username');
+        const profileId = document.getElementById('profile-id');
+        
+        // User list element
+        const userList = document.getElementById('user-list');
+        
+        // Event Listeners
+        workNowBtn.addEventListener('click', () => {
+            homePage.style.display = 'none';
+            searchPage.style.display = 'block';
+        });
+        
+        registrationBtn.addEventListener('click', () => {
+            homePage.style.display = 'none';
+            registrationPage.style.display = 'block';
+        });
+        
+        backFromRegistration.addEventListener('click', () => {
+            registrationPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        backFromSearch.addEventListener('click', () => {
+            searchPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        backFromProfile.addEventListener('click', () => {
+            profilePage.style.display = 'none';
+            searchPage.style.display = 'block';
+        });
+        
+        backFromAdminLogin.addEventListener('click', () => {
+            adminLoginPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        backFromAdmin.addEventListener('click', () => {
+            adminPanelPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        adminBtn.addEventListener('click', () => {
+            homePage.style.display = 'none';
+            adminLoginPage.style.display = 'block';
+        });
+        
+        registerBtn.addEventListener('click', () => {
+            const fullName = fullNameInput.value.trim();
+            const username = usernameInput.value.trim();
+            const bkash = bkashInput.value.trim();
+            
+            if (fullName && username && bkash) {
+                // Save user
+                const user = {
+                    id: currentUserId++,
+                    fullName,
+                    username,
+                    bkash,
+                    registrationDate: new Date().toLocaleString()
+                };
+                
+                users.push(user);
+                
+                // Clear form
+                fullNameInput.value = '';
+                usernameInput.value = '';
+                bkashInput.value = '';
+                
+                // Show success message
+                alert('Registration successful!');
+                
+                // Go back to home
+                registrationPage.style.display = 'none';
+                homePage.style.display = 'block';
+            } else {
+                alert('Please fill all fields');
+            }
+        });
+        
+        searchBtn.addEventListener('click', () => {
+            const searchUsername = searchUsernameInput.value.trim();
+            
+            if (searchUsername) {
+                const user = users.find(u => u.username === searchUsername);
+                
+                if (user) {
+                    // Display profile
+                    profileName.textContent = user.fullName;
+                    profileUsername.textContent = user.username;
+                    profileId.textContent = user.id;
+                    
+                    // Store current username for the links
+                    profileUsername.dataset.currentUsername = user.username;
+                    
+                    // Show profile page
+                    searchPage.style.display = 'none';
+                    profilePage.style.display = 'block';
+                } else {
+                    alert('User not found');
+                }
+            } else {
+                alert('Please enter a username to search');
+            }
+        });
+        
+        impressionBtn.addEventListener('click', () => {
+            const username = profileUsername.dataset.currentUsername;
+            const url = `https://101000.shop/92af22c7480006e3af1d/2bb8de396d/?placementName=${username}`;
+            window.open(url, '_blank');
+        });
+        
+        signupBtn.addEventListener('click', () => {
+            const username = profileUsername.dataset.currentUsername;
+            const url = `https://101000.shop/92af22c7480006e3af1d/2bb8de396d/?placementName=${username}`;
+            window.open(url, '_blank');
+        });
+        
+        confirmAdminBtn.addEventListener('click', () => {
+            const password = adminPasswordInput.value.trim();
+            
+            if (password === '373324') {
+                // Show admin panel
+                adminLoginPage.style.display = 'none';
+                adminPanelPage.style.display = 'block';
+                
+                // Populate user list
+                userList.innerHTML = '';
+                users.forEach(user => {
+                    const userItem = document.createElement('div');
+                    userItem.className = 'user-item';
+                    userItem.innerHTML = `
+                        <p><strong>ID:</strong> ${user.id}</p>
+                        <p><strong>Name:</strong> ${user.fullName}</p>
+                        <p><strong>Username:</strong> ${user.username}</p>
+                        <p><strong>Bkash:</strong> ${user.bkash}</p>
+                        <p><strong>Registered:</strong> ${user.registrationDate}</p>
+                    `;
+                    userList.appendChild(userItem);
+                });
+            } else {
+                alert('Incorrect password');
+            }
+        });
+        
+        // Initialize Telegram WebApp
+        Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cpm Work Online</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #4CAF50 50%, #000000 50%);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 10px auto;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: #4CAF50;
+        }
+        
+        .title {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .option-btn {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 200px;
+            text-align: center;
+        }
+        
+        .form-container {
+            background: linear-gradient(to right, #1E90FF 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            flex-grow: 1;
+            display: none;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        .submit-btn {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .profile-info {
+            background: linear-gradient(to right, #4CAF50 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .admin-panel {
+            background: linear-gradient(to right, #1E90FF 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            display: none;
+        }
+        
+        .user-list {
+            margin-top: 20px;
+        }
+        
+        .user-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .admin-login {
+            background: linear-gradient(to right, #1E90FF 50%, #000000 50%);
+            color: white;
+            padding: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Home -->
+    <div id="home-page">
+        <div class="header">
+            <h1>Cpm Work Online</h1>
+            <div class="logo">CW</div>
+            <div class="title">Welcome To The Freelancing Bot</div>
+        </div>
+        
+        <div class="options">
+            <button class="option-btn" id="work-now-btn">Work Now</button>
+            <button class="option-btn" id="registration-btn">Registration</button>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="option-btn" id="admin-btn" style="background-color: #ff5555; color: white; width: 150px;">Admin Panel</button>
+        </div>
+    </div>
+    
+    <!-- Page 2: Registration -->
+    <div id="registration-page" class="form-container">
+        <button class="back-btn" id="back-from-registration">← Back</button>
+        <h2 class="form-title">Registration</h2>
+        <div class="form-group">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+            <label for="bkash">Bkash Number</label>
+            <input type="text" id="bkash" placeholder="Enter your Bkash number">
+        </div>
+        <button class="submit-btn" id="register-btn">Registration</button>
+    </div>
+    
+    <!-- Page 3: Search Profile -->
+    <div id="search-page" class="form-container">
+        <button class="back-btn" id="back-from-search">← Back</button>
+        <h2 class="form-title">Search Profile</h2>
+        <div class="form-group">
+            <label for="search-username">Search Username</label>
+            <input type="text" id="search-username" placeholder="Enter username to search">
+        </div>
+        <button class="submit-btn" id="search-btn">Search</button>
+    </div>
+    
+    <!-- Page 4: Profile View -->
+    <div id="profile-page" class="profile-info">
+        <button class="back-btn" id="back-from-profile">← Back</button>
+        <h1>Cpm Work Online</h1>
+        <h2 id="profile-name"></h2>
+        <p>Username: <span id="profile-username"></span></p>
+        <p>Registration ID: <span id="profile-id"></span></p>
+        
+        <div class="options" style="margin-top: 30px;">
+            <button class="option-btn" id="impression-btn">Impression</button>
+            <button class="option-btn" id="signup-btn">Sign_up</button>
+        </div>
+    </div>
+    
+    <!-- Admin Login Page -->
+    <div id="admin-login-page" class="admin-login">
+        <button class="back-btn" id="back-from-admin-login">← Back</button>
+        <h2 class="form-title">Admin Panel</h2>
+        <div class="form-group">
+            <label for="admin-password">Password</label>
+            <input type="password" id="admin-password" placeholder="Enter admin password">
+        </div>
+        <button class="submit-btn" id="confirm-admin-btn">Confirm</button>
+    </div>
+    
+    <!-- Admin Panel -->
+    <div id="admin-panel-page" class="admin-panel">
+        <button class="back-btn" id="back-from-admin">← Back</button>
+        <h2 class="form-title">User Lists</h2>
+        <div id="user-list" class="user-list">
+            <!-- Users will be listed here -->
+        </div>
+    </div>
+    
+    <script>
+        // Database simulation
+        let users = [];
+        let currentUserId = 1;
+        
+        // DOM Elements
+        const homePage = document.getElementById('home-page');
+        const registrationPage = document.getElementById('registration-page');
+        const searchPage = document.getElementById('search-page');
+        const profilePage = document.getElementById('profile-page');
+        const adminLoginPage = document.getElementById('admin-login-page');
+        const adminPanelPage = document.getElementById('admin-panel-page');
+        
+        // Buttons
+        const workNowBtn = document.getElementById('work-now-btn');
+        const registrationBtn = document.getElementById('registration-btn');
+        const backFromRegistration = document.getElementById('back-from-registration');
+        const backFromSearch = document.getElementById('back-from-search');
+        const backFromProfile = document.getElementById('back-from-profile');
+        const backFromAdminLogin = document.getElementById('back-from-admin-login');
+        const backFromAdmin = document.getElementById('back-from-admin');
+        const registerBtn = document.getElementById('register-btn');
+        const searchBtn = document.getElementById('search-btn');
+        const impressionBtn = document.getElementById('impression-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const adminBtn = document.getElementById('admin-btn');
+        const confirmAdminBtn = document.getElementById('confirm-admin-btn');
+        
+        // Form fields
+        const fullNameInput = document.getElementById('full-name');
+        const usernameInput = document.getElementById('username');
+        const bkashInput = document.getElementById('bkash');
+        const searchUsernameInput = document.getElementById('search-username');
+        const adminPasswordInput = document.getElementById('admin-password');
+        
+        // Profile display elements
+        const profileName = document.getElementById('profile-name');
+        const profileUsername = document.getElementById('profile-username');
+        const profileId = document.getElementById('profile-id');
+        
+        // User list element
+        const userList = document.getElementById('user-list');
+        
+        // Event Listeners
+        workNowBtn.addEventListener('click', () => {
+            homePage.style.display = 'none';
+            searchPage.style.display = 'block';
+        });
+        
+        registrationBtn.addEventListener('click', () => {
+            homePage.style.display = 'none';
+            registrationPage.style.display = 'block';
+        });
+        
+        backFromRegistration.addEventListener('click', () => {
+            registrationPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        backFromSearch.addEventListener('click', () => {
+            searchPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        backFromProfile.addEventListener('click', () => {
+            profilePage.style.display = 'none';
+            searchPage.style.display = 'block';
+        });
+        
+        backFromAdminLogin.addEventListener('click', () => {
+            adminLoginPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        backFromAdmin.addEventListener('click', () => {
+            adminPanelPage.style.display = 'none';
+            homePage.style.display = 'block';
+        });
+        
+        adminBtn.addEventListener('click', () => {
+            homePage.style.display = 'none';
+            adminLoginPage.style.display = 'block';
+        });
+        
+        registerBtn.addEventListener('click', () => {
+            const fullName = fullNameInput.value.trim();
+            const username = usernameInput.value.trim();
+            const bkash = bkashInput.value.trim();
+            
+            if (fullName && username && bkash) {
+                // Save user
+                const user = {
+                    id: currentUserId++,
+                    fullName,
+                    username,
+                    bkash,
+                    registrationDate: new Date().toLocaleString()
+                };
+                
+                users.push(user);
+                
+                // Clear form
+                fullNameInput.value = '';
+                usernameInput.value = '';
+                bkashInput.value = '';
+                
+                // Show success message
+                alert('Registration successful!');
+                
+                // Go back to home
+                registrationPage.style.display = 'none';
+                homePage.style.display = 'block';
+            } else {
+                alert('Please fill all fields');
+            }
+        });
+        
+        searchBtn.addEventListener('click', () => {
+            const searchUsername = searchUsernameInput.value.trim();
+            
+            if (searchUsername) {
+                const user = users.find(u => u.username === searchUsername);
+                
+                if (user) {
+                    // Display profile
+                    profileName.textContent = user.fullName;
+                    profileUsername.textContent = user.username;
+                    profileId.textContent = user.id;
+                    
+                    // Store current username for the links
+                    profileUsername.dataset.currentUsername = user.username;
+                    
+                    // Show profile page
+                    searchPage.style.display = 'none';
+                    profilePage.style.display = 'block';
+                } else {
+                    alert('User not found');
+                }
+            } else {
+                alert('Please enter a username to search');
+            }
+        });
+        
+        impressionBtn.addEventListener('click', () => {
+            const username = profileUsername.dataset.currentUsername;
+            const url = `https://101000.shop/92af22c7480006e3af1d/2bb8de396d/?placementName=${username}`;
+            window.open(url, '_blank');
+        });
+        
+        signupBtn.addEventListener('click', () => {
+            const username = profileUsername.dataset.currentUsername;
+            const url = `https://101000.shop/92af22c7480006e3af1d/2bb8de396d/?placementName=${username}`;
+            window.open(url, '_blank');
+        });
+        
+        confirmAdminBtn.addEventListener('click', () => {
+            const password = adminPasswordInput.value.trim();
+            
+            if (password === '373324') {
+                // Show admin panel
+                adminLoginPage.style.display = 'none';
+                adminPanelPage.style.display = 'block';
+                
+                // Populate user list
+                userList.innerHTML = '';
+                users.forEach(user => {
+                    const userItem = document.createElement('div');
+                    userItem.className = 'user-item';
+                    userItem.innerHTML = `
+                        <p><strong>ID:</strong> ${user.id}</p>
+                        <p><strong>Name:</strong> ${user.fullName}</p>
+                        <p><strong>Username:</strong> ${user.username}</p>
+                        <p><strong>Bkash:</strong> ${user.bkash}</p>
+                        <p><strong>Registered:</strong> ${user.registrationDate}</p>
+                    `;
+                    userList.appendChild(userItem);
+                });
+            } else {
+                alert('Incorrect password');
+            }
+        });
+        
+        // Initialize Telegram WebApp
+        Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
+    </script>
+</body>
+</html>
